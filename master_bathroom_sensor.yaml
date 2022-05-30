@@ -1,0 +1,26 @@
+esphome:
+  name: master-bathroom-sensor
+  platform: esp32
+  board: nodemcu-32s
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+logger:
+
+api:
+
+ota:
+
+sensor:
+  - platform: dht
+    pin: GPIO4
+    temperature:
+      name: "Master Bathroom Temperature"
+      filters:
+        - offset: -2.5
+    humidity:
+      name: "Master Bathroom Humidity"
+    update_interval: 60s
+    model: DHT22
