@@ -16,7 +16,18 @@ ota:
 sensor:
   - platform: hx711
     name: "Water Softener Weight"
-    dout_pin: D7
-    clk_pin: D6
+    dout_pin: D6
+    clk_pin: D7
     gain: 128
-    update_interval: 60s
+    update_interval: 10s
+    filters:
+      - calibrate_linear:
+        - 88500 -> 0
+        - 87500 -> 1
+      - lambda: |-
+          if (x < 0) {
+            return 0;
+          } else {
+            return x;
+          } 
+    unit_of_measurement: kg
